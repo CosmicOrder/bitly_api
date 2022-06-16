@@ -9,7 +9,7 @@ from requests import HTTPError
 def is_bitlink(link):
     endpoint = f'https://api-ssl.bitly.com/v4/bitlinks/{link}'
 
-    response = requests.get(endpoint, headers=HEADERS)
+    response = requests.get(endpoint, headers=header)
     return response.ok
 
 
@@ -18,7 +18,7 @@ def shorten_link(link):
     payload = {"long_url": f"http://{link}"}
 
     response = requests.post(endpoint, json=payload,
-                             headers=HEADERS)
+                             headers=header)
     response.raise_for_status()
     bitlink = response.json()["link"]
     return f'Битлинк: {bitlink}'
@@ -28,7 +28,7 @@ def count_clicks(bitlink):
     endpoint = f'https://api-ssl.bitly.com/v4/bitlinks/' \
                f'{bitlink}/clicks/summary'
 
-    response = requests.get(endpoint, headers=HEADERS)
+    response = requests.get(endpoint, headers=header)
     response.raise_for_status()
     clicks_count = response.json()['total_clicks']
     return f'По вашей ссылке прошли {clicks_count} раз(а)'
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     load_dotenv()
 
     token = os.getenv('BITLY_TOKEN')
-    HEADERS = {
+    header = {
         "Authorization": f"Bearer {token}"
     }
 

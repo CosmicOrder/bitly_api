@@ -42,7 +42,7 @@ if __name__ == '__main__':
         "Authorization": f"Bearer {token}"
     }
 
-    url = input('Введите ссылку: ')
+    url = input('Введите ссылку: ').strip()
     no_scheme_url = ''.join(urlparse(url)[1:])
 
     try:

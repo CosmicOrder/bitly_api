@@ -43,7 +43,8 @@ if __name__ == '__main__':
     }
 
     url = input('Введите ссылку: ').strip()
-    no_scheme_url = ''.join(urlparse(url)[1:])
+    scheme, *no_scheme_url = urlparse(url)
+    no_scheme_url = ''.join(no_scheme_url)
 
     try:
         if is_bitlink(no_scheme_url):

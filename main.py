@@ -6,14 +6,14 @@ from dotenv import load_dotenv
 from requests import HTTPError
 
 
-def is_bitlink(link):
+def is_bitlink(link, header):
     endpoint = f'https://api-ssl.bitly.com/v4/bitlinks/{link}'
 
     response = requests.get(endpoint, headers=header)
     return response.ok
 
 
-def shorten_link(link):
+def shorten_link(link, header):
     endpoint = 'https://api-ssl.bitly.com/v4/shorten'
     payload = {"long_url": f"http://{link}"}
 
@@ -24,7 +24,7 @@ def shorten_link(link):
     return f'Битлинк: {bitlink}'
 
 
-def count_clicks(bitlink):
+def count_clicks(bitlink, header):
     endpoint = f'https://api-ssl.bitly.com/v4/bitlinks/' \
                f'{bitlink}/clicks/summary'
 
@@ -47,9 +47,9 @@ if __name__ == '__main__':
     no_scheme_url = ''.join(no_scheme_url)
 
     try:
-        if is_bitlink(no_scheme_url):
-            print(count_clicks(no_scheme_url))
+        if is_bitlink(no_scheme_url, header):
+            print(count_clicks(no_scheme_url, header))
         else:
-            print(shorten_link(no_scheme_url))
+            print(shorten_link(no_scheme_url, header))
     except HTTPError:
         print('Проверьте правильность написания ссылки')

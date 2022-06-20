@@ -1,9 +1,17 @@
+import argparse
 import os
 from urllib.parse import urlparse
 
 import requests
 from dotenv import load_dotenv
 from requests import HTTPError
+
+
+def create_parser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('url', help='Ссылка')
+
+    return parser
 
 
 def is_bitlink(link, header):
@@ -42,7 +50,10 @@ if __name__ == '__main__':
         "Authorization": f"Bearer {token}"
     }
 
-    url = input('Введите ссылку: ').strip()
+    parser = create_parser()
+    args = parser.parse_args()
+
+    url = f'{args.url}'.strip()
     scheme, *no_scheme_url = urlparse(url)
     no_scheme_url = ''.join(no_scheme_url)
 

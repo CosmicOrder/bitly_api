@@ -33,7 +33,7 @@ pip install -r requirements.txt
 Чтобы запустить скрипт, введите в терминале:
 
 ```
-python main.py
+python main.py 'требуемый url'
 ```
 
 ## Переменные окружения

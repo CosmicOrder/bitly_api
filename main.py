@@ -53,7 +53,7 @@ if __name__ == '__main__':
     parser = create_parser()
     args = parser.parse_args()
 
-    url = f'{args.url}'.strip()
+    url = args.url.strip()
     scheme, *no_scheme_url = urlparse(url)
     no_scheme_url = ''.join(no_scheme_url)
 
